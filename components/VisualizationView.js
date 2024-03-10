@@ -98,62 +98,82 @@ export function VisualizationView({ data }) {
 
   return (
     <>
-      <div>
-        <label htmlFor="contest">Select Contest</label>
-        <select
-          id="contest"
-          name="contest"
-          onChange={(event) => onContestChange(event.target.value)}
-          value={selectedContest}
-        >
-          {options.map((opt, index) => (
-            <option
-              value={opt.contest}
-              key={index}
-              onSelect={() => onContestChange(index)}
-            >
-              {opt.contest}
-            </option>
-          ))}
-        </select>
-      </div>
-      {!!selectedOption ? (
-        <div>
-          <label htmlFor="ward">Select Ward</label>
-          <select
-            id="ward"
-            name="ward"
-            value={selectedWard}
-            onChange={(event) => onWardChange(event.target.value)}
-          >
-            <option value="" disabled>
-              ...
-            </option>
-            {selectedOption.wards.map((ward, index) => (
-              <option value={ward} key={index}>
-                {ward}
-              </option>
-            ))}
-          </select>
+      <div className="w-full mb-8">
+        <div className="text-xl uppercase font-bold mb-5">
+          Visualization settings
         </div>
-      ) : (
-        ""
-      )}
-      <div>
-        <label htmlFor="type">Select Visualization Type</label>
-        <select
-          name="type"
-          id="type"
-          value={selectedType}
-          onChange={(event) => onTypeChange(event.target.value)}
-        >
-          <option value="pie">Pie</option>
-          <option value="bar">Bar</option>
-        </select>
+        <div className="grid grid-rows-1 grid-cols-3 gap-0">
+          <div className="w-full">
+            <label htmlFor="contest" className="mr-2">
+              Select Contest
+            </label>
+            <select
+              id="contest"
+              name="contest"
+              className="w-full mr-2"
+              onChange={(event) => onContestChange(event.target.value)}
+              value={selectedContest}
+            >
+              {options.map((opt, index) => (
+                <option
+                  value={opt.contest}
+                  key={index}
+                  onSelect={() => onContestChange(index)}
+                >
+                  {opt.contest}
+                </option>
+              ))}
+            </select>
+          </div>
+          {!!selectedOption ? (
+            <div className="w-full">
+              <label htmlFor="ward" className="mr-2">
+                Select Ward
+              </label>
+              <select
+                id="ward"
+                name="ward"
+                className="w-full mr-2"
+                value={selectedWard}
+                onChange={(event) => onWardChange(event.target.value)}
+              >
+                <option value="" disabled>
+                  ...
+                </option>
+                {selectedOption.wards.map((ward, index) => (
+                  <option value={ward} key={index}>
+                    {ward}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="w-full">
+            <label htmlFor="type" className="mr-2">
+              Select Visualization Type
+            </label>
+            <select
+              name="type"
+              id="type"
+              className="w-full mr-2"
+              value={selectedType}
+              onChange={(event) => onTypeChange(event.target.value)}
+            >
+              <option value="pie">Pie</option>
+              <option value="bar">Bar</option>
+            </select>
+          </div>
+        </div>
       </div>
-      {pieChartData && <PieChart series={pieChartData.seriesData} />}
+      <div className="text-xl uppercase font-bold mb-5 w-full">Results</div>
+      {pieChartData && (
+        <PieChart series={pieChartData.seriesData} height={300} />
+      )}
       {barChartData && (
         <BarChart
+          height={300}
           series={barChartData.seriesData}
           xAxis={barChartData.axisData}
         />
