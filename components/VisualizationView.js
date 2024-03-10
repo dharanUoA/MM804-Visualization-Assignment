@@ -6,9 +6,9 @@ import { PieChart, BarChart } from "@mui/x-charts";
 export function VisualizationView({ data }) {
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState();
-  const [selectedContest, setSelectedContext] = useState();
-  const [selectedWard, setSelectedWard] = useState();
-  const [selectedType, setSelectedType] = useState("pie");
+  const [selectedContest, setSelectedContext] = useState("");
+  const [selectedWard, setSelectedWard] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [pieChartData, setPieChartData] = useState();
   const [barChartData, setBarChartData] = useState();
 
@@ -30,10 +30,6 @@ export function VisualizationView({ data }) {
       }
     }
     setOptions(opts);
-    if (opts) {
-      setSelectedOption(opts[0]);
-      visualizeData(opts[0].contest, opts[0].wards[0], selectedType);
-    }
   }, []);
 
   const onContestChange = (contest) => {
@@ -114,6 +110,9 @@ export function VisualizationView({ data }) {
               onChange={(event) => onContestChange(event.target.value)}
               value={selectedContest}
             >
+              <option value="" disabled>
+                ...
+              </option>
               {options.map((opt, index) => (
                 <option
                   value={opt.contest}
@@ -161,6 +160,9 @@ export function VisualizationView({ data }) {
               value={selectedType}
               onChange={(event) => onTypeChange(event.target.value)}
             >
+              <option value="" disabled>
+                ...
+              </option>
               <option value="pie">Pie</option>
               <option value="bar">Bar</option>
             </select>
