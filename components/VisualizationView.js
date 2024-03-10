@@ -52,7 +52,7 @@ export function VisualizationView({ data }) {
   };
 
   const visualizeData = (contest, ward, type) => {
-    if (!contest || !ward) return;
+    if (!contest || !ward || !type) return;
     const filteredColumns =
       data.filter(
         (item) => item.contest == contest && item.ward_name == ward
